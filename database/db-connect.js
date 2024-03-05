@@ -1,16 +1,16 @@
-// db.js
-const { Pool } = require('pg');
+const {Sequelize} = require('sequelize');
 
-const pgClient = new Pool({
-    user: 'root',
+const db = new Sequelize({
+    dialect: 'postgres',
+    database: 'concept',
+    username: 'root',
     password: 'root',
     host: 'postgres',
-    database: 'concept',
     port: 5432
 });
 
+db.sync({force: true, alter: true}).then(() => {
+    console.log('Database synced');
+});
 
-pgClient.on('connect', () => console.log('Connected to PostgresSQL'));
-pgClient.on('error', err => console.error('Error connecting to PostgresSQL:', err));
-
-module.exports = {pgClient};
+module.exports = db;

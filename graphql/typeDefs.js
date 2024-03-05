@@ -7,7 +7,7 @@ const typeDefs = gql`
         published: Boolean!
     }
     type Query {
-        laws: [Law!]
+        laws: [Law!]!
         lawById(id:UUID):Law!
     }
     type Article {
@@ -17,7 +17,7 @@ const typeDefs = gql`
         Law: Law!
     }
     type Query {
-        articles: [Article!]
+        articles: [Article!]!
         articleById(id:UUID):Article!
     }
     

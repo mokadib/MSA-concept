@@ -20,3 +20,7 @@ db-setup:
 	@docker-compose exec db /bin/sh -c 'psql -U root -d concept -f ./sql/laws-create.sql'
 clear-cash:
 	@docker system prune -a
+
+## sequalize commands
+db-create-seeder:
+	@docker-compose exec app /bin/sh -c 'npx sequelize-cli seed:undo --name articles'

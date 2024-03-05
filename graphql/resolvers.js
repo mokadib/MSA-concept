@@ -1,5 +1,6 @@
-const {pgClient} = require("../database/db-connect");
-
+const sequelize = require('../database/db-connect');
+const Law = require('../models/Law');
+const Article = require('../models/Article');
 const resolvers = {
     Query: {
         ///////////////////////////////////////////////////////////////////////
@@ -7,17 +8,18 @@ const resolvers = {
         ///////////////////////////////////////////////////////////////////////
         laws: async () => {
             try {
-                const result = await pgClient.query('select * from laws;');
-                return result.rows;
+                const laws = await Law.findAll();
+                // console.log('Fetched laws:', laws);
+                // return await Law.findAll();
+                return laws;
             } catch (error) {
                 console.log(error);
                 throw error;
             }
         },
-        lawById: async (_, { id }) => {
+        lawById: async (_, {id}) => {
             try {
-                const result = await pgClient.query('select * from laws where id = $1;', [id]);
-                return result.rows[0];
+                return await Law.findByPk(id);
             } catch (error) {
                 console.log(error);
                 throw error;
@@ -28,17 +30,15 @@ const resolvers = {
         ///////////////////////////////////////////////////////////////////////
         articles: async () => {
             try {
-                const result = await pgClient.query('select * from articles;');
-                return result.rows;
+                return await Article.findAll();
             } catch (error) {
                 console.log(error);
                 throw error;
             }
         },
-        articleById: async (_, { id }) => {
+        articleById: async (_, {id}) => {
             try {
-                const result = await pgClient.query('select * from articles where id = $1;', [id]);
-                return result.rows[0];
+                return await Article.findByPk(id);
             } catch (error) {
                 console.log(error);
                 throw error;
