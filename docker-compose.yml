@@ -10,6 +10,8 @@ services:
       POSTGRES_PASSWORD: root
     ports:
       - "5432:5432"
+    networks:
+        - concept
 
   app:
     build:
@@ -22,3 +24,9 @@ services:
       - "3000:3000"
     depends_on:
       - postgres
+    networks:
+        - concept
+
+networks:
+    concept:
+        driver: bridge

@@ -1,15 +1,40 @@
-version: '3.8'
-services:
-  postgres:
-    image: postgres
-    environment:
-      POSTGRES_DB: test
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+version: '3.7'
 
-volumes:
-  postgres_data:
+services:
+  app-test:
+    container_name: app-test
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres-test
+    volumes:
+      - .:/usr/src/app
+      - ./sql-scripts:/sql-scripts
+    ports:
+      - "3000:3000"
+    environment:
+      - COMPOSER_MEMORY_LIMIT=-1
+      - NODE_ENV=test
+      - PORT=3000
+      - DATABASE_NAME=concept-test
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=root
+      - DATABASE_HOST=postgres-test
+      - DATABASE_PORT=5433
+      - DATABASE_DIALECT=postgres
+
+  postgres-test:
+    container_name: postgres-test
+    image: postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=concept-test
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+    ports:
+      - "5433:5432"
+
+networks:
+  default:
+    name: concept-testing

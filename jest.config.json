@@ -1,0 +1,10 @@
+{
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+        "@/(.*)": "<rootDir>/$1"
+    },
+    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
+    "roots": ["<rootDir>/test"],
+    "testMatch": ["<rootDir>/test/**/*.test.ts"]
+}

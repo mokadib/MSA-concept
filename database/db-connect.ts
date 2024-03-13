@@ -4,6 +4,12 @@ import LawModel from "../models/Law.model";
 import ArticleModel from "../models/Article.model";
 dotenv.config();
 
+if (process.env.NODE_ENV === 'test') {
+    dotenv.config({ path: '.env.test' });
+} else {
+    dotenv.config();
+}
+
 const sequelize = new Sequelize({
     dialect: 'postgres',
     database: process.env.DATABASE_NAME,
@@ -13,10 +19,17 @@ const sequelize = new Sequelize({
     port: 5432,
     models: [__dirname + [LawModel,ArticleModel]],
     sync: { force: true },
+
+    // dialect: 'postgres',
+    // database: 'concept-test',
+    // username: 'root',
+    // password: 'root',
+    // host: 'postgres-test',
+    // port: 5433,
+    // models: [__dirname + [LawModel,ArticleModel]],
+    // sync: { force: true },
 });
 
 sequelize.addModels([LawModel,ArticleModel]);
-// LawModel.belongsTo(ArticleModel, { foreignKey: 'law_id' , as: 'law' ,targetKey: 'id'});
-// ArticleModel.hasMany(LawModel, { foreignKey: 'law_id' , as: 'articles' ,sourceKey: 'id'});
 
 export default sequelize;
