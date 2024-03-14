@@ -1,28 +1,28 @@
 version: '3.7'
 
 services:
-  app-test:
-    container_name: app-test
-    build:
-      context: .
-      dockerfile: Dockerfile
-    depends_on:
-      - postgres-test
-    volumes:
-      - .:/usr/src/app
-      - ./sql-scripts:/sql-scripts
-    ports:
-      - "3000:3000"
-    environment:
-      - COMPOSER_MEMORY_LIMIT=-1
-      - NODE_ENV=test
-      - PORT=3000
-      - DATABASE_NAME=concept-test
-      - DATABASE_USER=root
-      - DATABASE_PASSWORD=root
-      - DATABASE_HOST=postgres-test
-      - DATABASE_PORT=5433
-      - DATABASE_DIALECT=postgres
+#  app-test:
+#    container_name: app-test
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    depends_on:
+#      - postgres-test
+#    volumes:
+#      - .:/usr/src/app
+#      - ./sql-scripts:/sql-scripts
+#    ports:
+#      - "3000:3000"
+#    environment:
+#      - COMPOSER_MEMORY_LIMIT=-1
+#      - NODE_ENV=test
+#      - PORT=3000
+#      - DATABASE_NAME=concept-test
+#      - DATABASE_USER=root
+#      - DATABASE_PASSWORD=root
+#      - DATABASE_HOST=postgres-test
+#      - DATABASE_PORT=5433
+#      - DATABASE_DIALECT=postgres
 
   postgres-test:
     container_name: postgres-test

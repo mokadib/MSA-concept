@@ -1,6 +1,7 @@
 {
 //  "extends": "./jest.config.json",
   "compilerOptions": {
+    "useUnknownInCatchVariables": false,
     "target": "es6",
     "module": "commonjs",
     "outDir": "./dist",
